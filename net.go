@@ -7,8 +7,8 @@ import (
 )
 
 type timeoutConn struct {
-	c             net.Conn
-	timeout       time.Duration
+	c       net.Conn
+	timeout time.Duration
 }
 
 func newTimeoutConn(conn net.Conn, timeout time.Duration) *timeoutConn {
@@ -51,21 +51,21 @@ func (c timeoutConn) RemoteAddr() net.Addr {
 }
 
 func (c timeoutConn) SetDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetDeadline(t)
 }
 
 func (c timeoutConn) SetReadDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetReadDeadline(t)
 }
 
 func (c timeoutConn) SetWriteDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetWriteDeadline(t)
 }
 
 // this connection is used during TLS Handshake
 // TDS protocol requires TLS handshake messages to be sent inside TDS packets
 type tlsHandshakeConn struct {
-	buf *tdsBuffer
+	buf           *tdsBuffer
 	packetPending bool
 	continueRead  bool
 }
@@ -148,21 +148,21 @@ func (c passthroughConn) Close() error {
 }
 
 func (c passthroughConn) LocalAddr() net.Addr {
-	panic("Not implemented")
+	return c.c.LocalAddr()
 }
 
 func (c passthroughConn) RemoteAddr() net.Addr {
-	panic("Not implemented")
+	return c.c.RemoteAddr()
 }
 
 func (c passthroughConn) SetDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetDeadline(t)
 }
 
 func (c passthroughConn) SetReadDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetReadDeadline(t)
 }
 
 func (c passthroughConn) SetWriteDeadline(t time.Time) error {
-	panic("Not implemented")
+	return c.c.SetWriteDeadline(t)
 }
